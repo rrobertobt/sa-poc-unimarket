@@ -1,0 +1,30 @@
+# Dockerfile especifico para OCI (Container Instances + Autonomous Database).
+# Diferencias contra el Dockerfile generico (usado por AWS/GCP/Azure y docker-compose local):
+#   - oracledb se instala siempre (aqui DB_DRIVER=oracle no es opcional).
+#   - el wallet de Autonomous DB se copia dentro de la imagen (ver deploy/oci/README.md,
+#     seccion 2: esta es la unica de las 4 imagenes que no queda 100% publica, por eso se
+#     sube a OCIR en vez de Docker Hub, que crea el repo como privado por defecto).
+#
+# Build context = backend/ (igual que el Dockerfile generico), pero requiere que exista
+# backend/wallet/ con el contenido del wallet descargado (nunca se commitea, ver .gitignore):
+#   cp -r ../deploy/oci/Wallet_unimarketpocdb ./wallet   (ejecutar dentro de backend/)
+
+FROM node:24-alpine
+
+WORKDIR /app
+
+COPY package.json package-lock.json* ./
+RUN npm install --omit=dev --omit=optional && npm install oracledb --omit=dev
+
+COPY src ./src
+COPY wallet ./wallet
+
+ENV PORT=8080
+ENV DB_DRIVER=oracle
+ENV TNS_ADMIN=/app/wallet
+EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD wget -qO- http://localhost:8080/health || exit 1
+
+CMD ["node", "src/index.js"]

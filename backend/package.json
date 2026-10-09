@@ -1,0 +1,20 @@
+{
+  "name": "unimarket-productos-api",
+  "version": "1.0.0",
+  "description": "Microservicio 'productos' de UniMarket CUNOC - PoC multi-nube (Practica 4, Modelacion y Simulacion 2)",
+  "main": "src/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "pg": "^8.12.0"
+  },
+  "optionalDependencies": {
+    "oracledb": "^6.6.0"
+  }
+}

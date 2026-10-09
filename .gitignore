@@ -1,0 +1,10 @@
+# Dependencias
+node_modules/
+
+# Variables de entorno / secretos locales
+.env
+.env.local
+
+
+# Build artifacts
+frontend/dist/

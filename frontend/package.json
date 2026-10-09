@@ -1,0 +1,17 @@
+{
+  "name": "unimarket-productos-frontend",
+  "version": "1.0.0",
+  "description": "Frontend simple (Vue 3) para el microservicio productos de UniMarket CUNOC - PoC multi-nube",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.4.29"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.5",
+    "vite": "^5.3.1"
+  }
+}
